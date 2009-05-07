@@ -1,0 +1,35 @@
+v0.2 - xx/xx/2009
+_________________
+
+- GPL release
+- Full english translation
+- Full XHTML strict validation
+- Major cosmetic changes in overall graphics
+
+Many installation issues
+* Fix: Application startup on fresh install dit not load properly empty iptables configuration
+* Fix: Iptables user-defined chain "disable" was not correctly set on both filter and nat tables
+* Fix: Errors when loading application modules were not properly handled and displayed
+
+Many security enhancements
+- Unified security library for user inputs and system outputs validation
+* Fix: NAT targets were not checked to be usable in requested chain
+* Fix: System commands execution did sometimes return unexpected results
+* Fix: $_GET and $_POST arrays were not fully secured before data display
+* Fix: Session hijacking control did not regenerate properly session IDs
+
+Various improvements
++ Add: Automatic configuration tests are run on fresh installations
++ Add: Interfaces list now alerts on both non-UP or non-RUNNING status
++ Add: Interfaces now shows their associated network masks and MTU
+* Fix: IPv6 addresses sent by some services to netstat command were skipped
+* Fix: ARP cache display had some troubles with unknown MAC addresses
++ Add: Copy action button can now duplicate existing rules
++ Add: NAT address translation now accepts addresses range
+* Fix: Existing mangle settings were overwritten when committing changes
+
+
+v0.1 - 30/09/2006
+_________________
+
+- Initial release

@@ -1,0 +1,51 @@
+INSTALLATION GUIDE
+__________________
+
+Requirements
+------------
+
+* Linux kernel >2.4 (2.6 recommended) with appropriate netfilter modules
+* Iptables >1.3 with iptables-save and iptables-restore binaries
+* Sudo >1.6 privileges escalation tool
+* PHP5 >5.1 without safe-mode and with sessions support
+* Smarty >2.6 PHP templates processing framework
+* Web server with PHP5 support (Apache2 recommended)
+* Web browser with JavaScript enabled (Firefox3 recommended)
+
+Configuration
+-------------
+
+This application is web-based. You need to identify the web user on your system
+to grant proper permissions. Web user may change according to your Linux
+distribution and web server: www-data, apache, www, etc.
+
+* Extract archive to web directory
+	* tar -xzf archive.tar.gz
+
+* Grant permissions to web user
+	* chown -R www-data.www-data
+
+* Edit sudo configuration
+	* visudo or edit /etc/sudoers
+	* Grant root privileges to web user for Iptables binaries execution
+
+	root		ALL = (ALL) ALL
+	www-data	ALL = (root) NOPASSWD: /sbin/iptables*
+
+* Edit application configuration file
+	* edit inc/config.inc.php
+	* Define display preferences and system paths to binaries
+
+* Secure your web directory!
+	* Bind web server to local addresses only
+	* Create appropriate firewall rules to restrict connections
+	* Enable server-embedded user authentication (.htaccess)
+
+/!\ Caution /!\
+---------------
+
+Backup your current Iptables configuration before running the application. Even
+though most common rules and options are supported and will be automatically
+imported, some specific parameters may be lost in the process. Note that no
+modification will be made before you actually commit a new configuration so pay
+close attention to first run.
