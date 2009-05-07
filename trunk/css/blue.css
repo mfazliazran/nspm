@@ -1,0 +1,45 @@
+/* ********************************************************************** */
+/*                              Blue layout                               */
+/* ********************************************************************** */
+
+a:link, a:visited {
+	color: #135CAE;
+}
+a:hover {
+	color: #0B3768;
+}
+
+#page {
+	background: #0C3A6D;
+}
+
+#pillmenu a:hover {
+	color: #135CAE;
+}
+
+div#wrapper {
+	background: #F7F7F7 url(../img/blue/mw_shadow_l.png) 0 0 repeat-y;
+}
+div#wrapper_r {
+	background: url(../img/blue/mw_shadow_r.png) 100% 0 repeat-y;
+}
+
+div#header {
+	background: url(../img/blue/mw_header_t.png) 0 0 repeat-x;
+}
+div#header_l {
+	background: url(../img/blue/mw_header_t_l.png) 0 0 no-repeat;
+}
+div#header_r {
+	background: url(../img/blue/mw_header_t_r.png) 100% 0 no-repeat;
+}
+
+div#footer {
+	background: #F7F7F7 url(../img/blue/mw_footer_b.png) 0 100% repeat-x;
+}
+div#footer_l {
+	background: url(../img/blue/mw_footer_b_l.png) 0 0 no-repeat;
+}
+div#footer_r {
+	background: url(../img/blue/mw_footer_b_r.png) 100% 0 no-repeat;
+}
