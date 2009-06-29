@@ -16,7 +16,7 @@
 </table><br />
 
 {foreach from=$options.tables.$table item=chain}
-<form method="post" action="{$table}.php?chain={$chain}" id="{$chain}form" style="width:100%;">
+<form method="post" action="{$table}.php?chain={$chain}" id="{$chain}form">
 	<fieldset>
 	<legend>{$chain}</legend>
 		<img src="img/icons/add.png" width="16" height="16" alt="Add" />
@@ -29,8 +29,8 @@
 				<th style="width:60px;">Protocol</th>
 				<th>Source</th>
 				<th>Destination</th>
-				<th style="width:225px;">Others</th>
-				<th style="width:95px;"></th>
+				<th style="width:225px;">Details</th>
+				<th style="width:116px;"></th>
 			</tr>
 		</thead>
 

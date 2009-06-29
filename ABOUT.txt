@@ -6,7 +6,7 @@ specific or commercial use out of the scope of GPL, you are asked to request a
 specific license or explicit permission from the author.
 
 If you are using this application and like the way it works, I would be glad to
-hear from you and listen to your feedbacks. If by the way you are the author of
+hear from you and listen to your feedback. If by the way you are the author of
 any improvement or bugfix related to this software, you are welcome to notify
 me, I will try to include them in a future release of the community product and
 to give you credits for your appreciated support and contribution.
@@ -20,5 +20,6 @@ Credits
 -------
 
 * Project logo includes an original "Tux" creation by Halit Yesil from Tux Factory (http://tux.crystalxp.net/)
-* Software "Silk icons" are made by Mark James from FamFamFam (http://www.famfamfam.com/lab/icons/silk/)
+* Software "Silk icons" are designed by Mark James from FamFamFam (http://www.famfamfam.com/lab/icons/silk/)
+* Software includes KDE icons by Everaldo Coelho from Crystal Project (http://www.everaldo.com/crystal/)
 * Software interface and layout use graphics and style elements from Joomla! templates (http://www.joomla.org/)

@@ -28,23 +28,23 @@ class Page extends Smarty
 	* Class constructor
 	* Define template engine configuration settings
 	*/
-	function __construct()
+	public function __construct()
 	{
 		parent::Smarty();
 		$this->template_dir			= HTML_DIR . 'templates/';
 		$this->compile_dir			= HTML_DIR . 'templates/templates_c/';
-		$this->config_dir				= HTML_DIR . 'templates/configs/';
-		$this->cache_dir				= HTML_DIR . 'templates/cache/';
+		$this->config_dir			= HTML_DIR . 'templates/configs/';
+		$this->cache_dir			= HTML_DIR . 'templates/cache/';
 		$this->plugins_dir			= array('plugins');
-		$this->debugging				= false;
+		$this->debugging			= false;
 		$this->error_reporting		= E_ALL;
-		$this->debug_tpl				= '';
+		$this->debug_tpl			= '';
 		$this->debugging_ctrl		= 'NONE';
-		$this->compile_check			= true;
-		$this->force_compile			= true;
-		$this->caching					= false;
+		$this->compile_check		= true;
+		$this->force_compile		= true;
+		$this->caching				= false;
 		$this->cache_lifetime		= 3600;
-		$this->cache_modified_check= false;
+		$this->cache_modified_check	= false;
 	}
 }
 ?>

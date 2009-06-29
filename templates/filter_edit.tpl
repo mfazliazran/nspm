@@ -29,7 +29,7 @@
 </p>
 {/if}
 
-<form method="post" action="./{$page}.php?chain={$chain}" style="width:100%;">
+<form method="post" action="{$page}.php?chain={$chain}">
 	<fieldset>
 	<legend>Context</legend>
 		<table>

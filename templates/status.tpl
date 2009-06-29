@@ -4,7 +4,7 @@
 {assign var="error_icon" value='<img src="img/icons/error.png" width="16" height="16" alt="Error" title="Interface is down" />'}
 
 <h1>System and network status</h1>
-<form method="post" action="./{$page}.php">
+<form method="post" action="{$page}.php">
 	<fieldset>
 	<legend>Interfaces</legend>
 		<table class="list">

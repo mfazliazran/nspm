@@ -2,7 +2,7 @@
 
 <h1>Security policies</h1>
 
-<form method="post" action="policy.php">
+<form method="post" action="{$page}.php">
 	{foreach from=$options.tables key=table item=chains} 
 	<fieldset>
 	<legend>{$table|capitalize}</legend>
@@ -21,8 +21,8 @@
 	{/foreach} 
 
 	<p class="centered">
-		<input type="submit" name="submit" value="Submit" />
-		<input type="reset" value="Cancel" />
+		<input type="submit" name="submit" value="Change policies" />
+		<input type="reset" value="Reset fields" />
 	</p>
 </form>
 

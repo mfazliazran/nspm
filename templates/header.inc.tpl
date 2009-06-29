@@ -3,7 +3,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{$smarty.const.LANG}" lang="{$smarty.const.LANG}">
 <head>
-	<title>{$title|default:$smarty.const.TITLE}</title>
+	<title>NSPM - {$title|default:$smarty.const.TITLE}</title>
 
 	<!-- Charset -->
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -81,7 +81,7 @@
 
 						{elseif isset($state) && $state == 1} 
 						Configuration modified<br />
-						<a href="./save.php" onclick="if(!confirm('This action will immediately register and apply current configuration to your system.\nAre you sure you want to proceed?')) return false;">Commit</a> -
+						<a href="./save.php" onclick="if(!confirm('This action will immediately register and apply current configuration to your system.\nAre you sure you want to proceed?')) return false;">Save</a> -
 						<a href="./restore.php" onclick="if(!confirm('This action will definitely erase all modifications performed since last commit.\nAre you sure you want to proceed?')) return false;">Restore</a>
 
 						{elseif isset($state) && $state == 2} 

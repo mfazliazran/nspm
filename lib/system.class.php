@@ -79,7 +79,7 @@ class System
 				preg_match('/Link encap:\s*(\S*)/', $output, $matches);
 				$res[$if]['link'] = (isset($matches[1]) ? $matches[1] : 'Unknown');
 
-				preg_match('/HWaddr\s*([0-9A-F:]*)\s/', $output, $matches);
+				preg_match('/HWaddr\s*([0-9a-f:]*)\s/i', $output, $matches);
 				$res[$if]['mac'] = (isset($matches[1]) ? $matches[1] : '');
 
 				preg_match('/MTU:\s*([0-9]*)\s/', $output, $matches);
