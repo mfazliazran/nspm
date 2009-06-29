@@ -50,6 +50,13 @@ else
 $loading = microtime(true);
 session_start();
 
+// Check user authentication
+if (!isset($_SESSION['auth']['user']))
+{
+	header('Location: ./auth.php');
+	exit;
+}
+
 // Check session integrity violation
 if (!Security::checkSession())
 {
@@ -64,6 +71,9 @@ if (!Security::checkSession())
 	// Generate new session and session token
 	session_start();
 	Security::checkSession();
+	// Redirect to authentication page
+	header('Location: ./auth.php');
+	exit;
 }
 
 // Send common parameters to template

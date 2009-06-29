@@ -22,7 +22,7 @@ $page = 'policy';
 $tpl->assign('page', $page);
 
 // Process submited form
-if (isset($_POST['submit']))
+if (getPost('submit'))
 {
 	// Browse tables
 	foreach ($OPTIONS['tables'] as $table => $chains)

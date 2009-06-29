@@ -16,30 +16,38 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-require_once('./inc/pre.inc.php');
+// Include configuration file
+require_once('./inc/config.inc.php');
+
+// Include common functions
+require_once('./inc/utils.inc.php');
+
+session_start();
 
 // Redirect to startup page if application session exists and no check requested
-if (isset($_SESSION['config']) && !getParam('check'))
+if (isset($_SESSION['auth']['user']) && !getParam('check'))
 {
 	header('Location: ./status.php');
 	exit;
 }
 else
 {
-	// Check fresh install
-	if (isset($tpl->compile_dir) && is_dir($tpl->compile_dir))
+	// Check for fresh install without compiled templates
+	if (is_dir('./templates/templates_c/'))
 	{
-		$nb = count(scandir($tpl->compile_dir));
+		$nb = count(scandir('./templates/templates_c/'));
 	}
 	// Redirect to initial tests page on fresh install or on request
-	if (getParam('check') || ($nb <= 3))
+	// 4 stands for ".", "..", ".svn" and "index.html" entries
+	if (getParam('check') || ($nb <= 4))
 	{
 		header('Location: ./check.php');
 		exit;
 	}
+	// Redirect to authentication page
 	else
 	{
-		header('Location: ./status.php');
+		header('Location: ./auth.php');
 		exit;
 	}
 }

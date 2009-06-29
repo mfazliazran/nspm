@@ -61,6 +61,23 @@ body {
 	width: 100%;
 }
 
+#auth {
+	width: 280px;
+	margin: auto;
+	background: url(../img/logo.png) no-repeat top;
+	padding-top: 110px;
+}
+
+#login {
+	background:url('../img/icons/user.png') no-repeat 2px;
+	padding-left: 20px;
+}
+
+#password {
+	background:url('../img/icons/key.png') no-repeat 2px;
+	padding-left: 20px;
+}
+
 #footerspacer {
 	height: 10px;
 }

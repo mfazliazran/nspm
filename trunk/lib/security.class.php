@@ -385,13 +385,13 @@ class Security
 	public static function checkSession()
 	{
 		// Create session token based on client IP address and client user agent
-		$authid = sha1($_SERVER['REMOTE_ADDR'].$_SERVER['HTTP_USER_AGENT'].$_SERVER['SERVER_ADDR']);
+		$token = sha1($_SERVER['REMOTE_ADDR'].$_SERVER['HTTP_USER_AGENT'].$_SERVER['SERVER_ADDR']);
 		
 		// Session already exists
-		if (isset($_SESSION['auth']['check']))
+		if (isset($_SESSION['auth']['token']))
 		{
 			// Session token is valid
-			if ($_SESSION['auth']['check'] == $authid)
+			if ($_SESSION['auth']['token'] == $token)
 			{
 				return true;
 			}
@@ -403,7 +403,7 @@ class Security
 		// Session token registration
 		else
 		{
-			$_SESSION['auth']['check'] = $authid;
+			$_SESSION['auth']['token'] = $token;
 			return true;
 		}
 	}

@@ -32,7 +32,7 @@
 				<th>Destination</th>
 				<th>Translation</th>
 				<th style="width:150px;">Comment</th>
-				<th style="width:95px;"></th>
+				<th style="width:116px;"></th>
 			</tr>
 		</thead>
 
