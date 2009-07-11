@@ -17,15 +17,11 @@
 
 {if isset($errors) && $errors|@count != 0 }
 <p class="warning">
-	<img src="img/icons/warning.png" width="16" height="16" alt="Warning" />
-	&nbsp;Errors in rule parameters&nbsp;
-	<img src="img/icons/warning.png" width="16" height="16" alt="Warning" />
+	Errors in rule parameters.
 </p>
 {elseif isset($edit) && isset($values.target) && ($values.target == 'disable')}
 <p class="warning">
-	<img src="img/icons/warning.png" width="16" height="16" alt="Warning" />
-	&nbsp;This rule is currently disabled&nbsp;
-	<img src="img/icons/warning.png" width="16" height="16" alt="Warning" />
+	This rule is currently disabled.
 </p>
 {/if}
 

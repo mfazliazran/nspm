@@ -78,6 +78,7 @@ if (!Security::checkSession())
 
 // Send common parameters to template
 $tpl = new Page();
+$tpl->assign('user', $_SESSION['auth']['user']);
 $tpl->assign('options', $OPTIONS);
 
 // Restore existing transaction state

@@ -74,25 +74,34 @@
 						<span>{$smarty.const.TITLE}</span>
 					</div>
 					<div id="status">
-						<span>
-						{if isset($state) && $state == 0} 
-						Configuration unchanged<br />
-						<a href="./restore.php">Force reload</a>
+						<div style="margin-bottom:30px;">
+							<span>
+							Logged in as: <strong>{$user}</strong> <img src="img/icons/user.png" width="16" height="16" alt="User" title="User {$user}" />
+							<a href="./auth.php?logout=1" {if isset($state) && $state == 1}onclick="if(!confirm('Exiting current session will cancel all pending changes.\nAre you sure you want to proceed?')) return false;"{/if}><img src="img/icons/logout.png" width="16" height="16" alt="Logout" title="Logout" /></a>
+							</span>
+						</div>
 
-						{elseif isset($state) && $state == 1} 
-						Configuration modified<br />
-						<a href="./save.php" onclick="if(!confirm('This action will immediately register and apply current configuration to your system.\nAre you sure you want to proceed?')) return false;">Save</a> -
-						<a href="./restore.php" onclick="if(!confirm('This action will definitely erase all modifications performed since last commit.\nAre you sure you want to proceed?')) return false;">Restore</a>
-
-						{elseif isset($state) && $state == 2} 
-						Configuration saved<br />
-						<a href="./restore.php">Force reload</a>
-
-						{else} 
-						Configuration not loaded<br />
-						<a href="./restore.php">Force reload</a>
-						{/if} 
-						</span>
+						<div>
+							<span>
+							{if isset($state) && $state == 0} 
+							<p>Configuration unchanged</p>
+							<a href="./restore.php"><img src="img/reload.png" width="88" height="20" alt="Reload" title="Reload configuration" /></a>
+	
+							{elseif isset($state) && $state == 1} 
+							<p>Configuration modified</p>
+							<a href="./save.php" onclick="if(!confirm('This action will immediately register and apply current configuration to your system.\nAre you sure you want to proceed?')) return false;"><img src="img/save.png" width="88" height="20" alt="Save" title="Save configuration" /></a>
+							<a href="./restore.php" onclick="if(!confirm('This action will definitely erase all modifications performed since last commit.\nAre you sure you want to proceed?')) return false;"><img src="img/restore.png" width="88" height="20" alt="Restore" title="Restore configuration" /></a>
+	
+							{elseif isset($state) && $state == 2} 
+							<p>Configuration saved</p>
+							<a href="./restore.php"><img src="img/reload.png" width="88" height="20" alt="Reload" title="Reload configuration" /></a>
+	
+							{else} 
+							<p>Configuration not loaded</p>
+							<a href="./restore.php"><img src="img/reload.png" width="88" height="20" alt="Reload" title="Reload configuration" /></a>
+							{/if} 
+							</span>
+						</div>
 					</div>
 				</div>
 			</div>

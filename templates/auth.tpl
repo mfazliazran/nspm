@@ -46,34 +46,38 @@
 <body id="page">
 <div id="wrapper">
 	<div id="auth">
-	{if isset($failed) && ($failed == 1)}
-	<p class="warning">
-		<img src="img/icons/warning.png" width="16" height="16" alt="Warning" />
-		&nbsp;Login failed&nbsp;
-		<img src="img/icons/warning.png" width="16" height="16" alt="Warning" />
-		<br />Please check your credentials
-	</p>
-	{/if}
-	{if ($method == 'session')}
-	<form method="post" action="{$page}.php">
-		<fieldset>
-		<legend>Authentication</legend>
-			<table>
-			<tr>
-				<th><label for="login">Username</label></th>
-				<td>: <input type="text" name="login" id="login" /></td>
-			</tr>
-			<tr>
-				<th><label for="password">Password</label></th>
-				<td>: <input type="password" name="password" id="password" /></td>
-			</tr>
-			</table>
-			<p class="centered">
-				<input type="submit" name="submit" value="Submit" />
-			</p>
-		</fieldset>
-	</form>
-	{/if}
+		{if isset($failed) && ($failed == 1)}
+		<p class="warning">
+			Login verification failed.<br />
+			Please check your credentials.
+		</p>
+		{/if}
+		{if isset($logout) && ($logout == 1)}
+		<p class="confirm">
+			Logout successful.<br />
+			Your session has been cleared.
+		</p>
+		{/if}
+		{if ($method == 'session')}
+		<form method="post" action="{$page}.php">
+			<fieldset>
+			<legend>Authentication</legend>
+				<table>
+				<tr>
+					<th><label for="login">Username</label></th>
+					<td>: <input type="text" name="login" id="login" /></td>
+				</tr>
+				<tr>
+					<th><label for="password">Password</label></th>
+					<td>: <input type="password" name="password" id="password" /></td>
+				</tr>
+				</table>
+				<p class="centered">
+					<input type="submit" name="submit" value="Submit" />
+				</p>
+			</fieldset>
+		</form>
+		{/if}
 	</div>
 </div>
 </body>

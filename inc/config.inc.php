@@ -20,7 +20,7 @@
 // --> session: use built-in authentication module
 // --> http: use HTTP or external Apache authentication
 // --> none: no authentication (VERY unsecure)
-define('AUTH', 'session');
+define('AUTH', 'http');
 
 // Define NSPM administrator credentials
 // *** CHANGE for security concerns ***
