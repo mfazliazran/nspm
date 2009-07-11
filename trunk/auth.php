@@ -28,59 +28,74 @@ require_once('./inc/utils.inc.php');
 session_start();
 $page = 'auth';
 
-// No authentication required
-if (AUTH == 'none')
+// Logout request
+if (getParam('logout'))
 {
-	$_SESSION['auth']['user'] = LOGIN;
-	$authorized = true;
+	// Delete all registered data
+	session_unset();
+	// Delete session file
+	session_destroy();
+	// Start new session
+	session_start();
+	$logout = true;
 }
-// HTTP authentication required
-elseif (AUTH == 'http')
+// Login process
+else
 {
-	// Web server internal authentication
-	if (isset($_SERVER['REMOTE_USER']))
+	// No authentication required
+	if (AUTH == 'none')
 	{
-		$_SESSION['auth']['user'] = $_SERVER['REMOTE_USER'];
+		$_SESSION['auth']['user'] = LOGIN;
 		$authorized = true;
 	}
-	// PHP-based authentication credentials check
-	elseif (isset($_SERVER['PHP_AUTH_USER']) && ($_SERVER['PHP_AUTH_USER'] == LOGIN) && (sha1($_SERVER['PHP_AUTH_PW']) == PASSWORD))
+	// HTTP authentication required
+	elseif (AUTH == 'http')
 	{
-		$_SESSION['auth']['user'] = $_SERVER['PHP_AUTH_USER'];
-		$authorized = true;
-	}
-	// PHP-based authentication prompt
-	else
-	{
-		// Send HTTP authentication headers
-		header('WWW-Authenticate: Basic realm="' . REALM . '"');
-		header('HTTP/1.0 401 Unauthorized');
-		header('Status: 401 Access Denied');
-		$authorized = false;
-	}
-}
-// Built-in authentication required
-elseif (AUTH == 'session')
-{
-	// Credentials form submission
-	if (getPost('submit'))
-	{
-		if (getPost('login') && getPost('password'))
+		// Web server internal authentication
+		if (isset($_SERVER['REMOTE_USER']))
 		{
-			// Credentials check
-			if ((getPost('login', true) == LOGIN) && (sha1(getPost('password', true)) == PASSWORD))
+			$_SESSION['auth']['user'] = $_SERVER['REMOTE_USER'];
+			$authorized = true;
+		}
+		// PHP-based authentication credentials check
+		elseif (isset($_SERVER['PHP_AUTH_USER']) && ($_SERVER['PHP_AUTH_USER'] == LOGIN) && (sha1($_SERVER['PHP_AUTH_PW']) == PASSWORD))
+		{
+			$_SESSION['auth']['user'] = $_SERVER['PHP_AUTH_USER'];
+			$authorized = true;
+		}
+		// PHP-based authentication prompt
+		else
+		{
+			// Send HTTP authentication headers
+			header('WWW-Authenticate: Basic realm="' . REALM . '"');
+			header('HTTP/1.0 401 Unauthorized');
+			header('Status: 401 Access Denied');
+			$authorized = false;
+		}
+	}
+	// Built-in authentication required
+	elseif (AUTH == 'session')
+	{
+		// Credentials form submission
+		if (getPost('submit'))
+		{
+			if (getPost('login') && getPost('password'))
 			{
-				$_SESSION['auth']['user'] = getPost('login', true);
-				$authorized = true;
+				// Credentials check
+				if ((getPost('login', true) == LOGIN) && (sha1(getPost('password', true)) == PASSWORD))
+				{
+					$_SESSION['auth']['user'] = getPost('login', true);
+					$authorized = true;
+				}
+				else
+				{
+					$authorized = false;
+				}
 			}
 			else
 			{
 				$authorized = false;
 			}
-		}
-		else
-		{
-			$authorized = false;
 		}
 	}
 }
@@ -99,7 +114,11 @@ else
 	$tpl->assign('method', AUTH);
 	if (isset($authorized) && (!$authorized))
 	{
-		$tpl->assign('failed', '1');
+		$tpl->assign('failed', 1);
+	}
+	elseif (isset($logout))
+	{
+		$tpl->assign('logout', 1);
 	}
 	$tpl->display('auth.tpl');
 }

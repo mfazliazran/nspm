@@ -38,7 +38,7 @@ body {
 
 #logo {
 	float: left;
-	height: 90px;
+	height: 100px;
 	padding-left: 85px;
 	padding-top: 35px;
 	background: url(../img/logo.png) no-repeat top left;
@@ -48,10 +48,10 @@ body {
 
 #status {
 	float: right;
-	height: 90px;
+	height: 100px;
 	padding-left: 53px;
-	padding-top: 33px;
-	background: url(../img/floppy.png) no-repeat 0% 33%;
+	padding-top: 0px;
+	background: url(../img/floppy.png) no-repeat 0% 90%;
 	text-align: center;
 }
 
@@ -69,12 +69,12 @@ body {
 }
 
 #login {
-	background:url('../img/icons/user.png') no-repeat 2px;
+	background: url('../img/icons/user.png') no-repeat 2px;
 	padding-left: 20px;
 }
 
 #password {
-	background:url('../img/icons/key.png') no-repeat 2px;
+	background: url('../img/icons/key.png') no-repeat 2px;
 	padding-left: 20px;
 }
 
@@ -163,11 +163,25 @@ th {
 	text-align: justify;
 }
 
-.warning {
-	border: 1px solid #FFE3E3;
-	background-color: #FFFFE3;
+.confirm {
+	border: 1px solid #33CC33;
+	background: #E3FFE3 url('../img/icons/ok.png') no-repeat 2px;
+	padding: 2px 2px 2px 20px;
 	text-align: center;
-	padding: 2px;
+}
+
+.warning {
+	border: 1px solid #FFCC33;
+	background: #FFFFE3 url('../img/icons/warning.png') no-repeat 2px;
+	padding: 2px 2px 2px 20px;
+	text-align: center;
+}
+
+.error {
+	border: 1px solid #FF9966;
+	background: #FFE3E3 url('../img/icons/error.png') no-repeat 2px;
+	padding: 2px 2px 2px 20px;
+	text-align: center;
 }
 
 
