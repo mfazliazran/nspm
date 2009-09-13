@@ -98,7 +98,7 @@ function MaskToCIDR($mask)
 	// No valid network mask
 	else
 	{
-		$cidr = $data[0];
+		$cidr = $mask;
 	}
 
 	return $address . $cidr;
@@ -127,7 +127,7 @@ function CIDRToMask($cidr)
 	// No valid CIDR
 	else
 	{
-		$mask = $data[0];
+		$mask = $cidr;
 	}
 
 	return $address . $mask;

@@ -2,8 +2,8 @@
 // Define tables, chains ans associated targets
 $OPTIONS['tables'] = array(
 	'filter'	=> array('INPUT', 'FORWARD', 'OUTPUT'),
-	'nat'		=> array('PREROUTING', 'POSTROUTING', 'OUTPUT')
-	//'mangle'	=> array('PREROUTING', 'INPUT', 'FORWARD', 'OUTPUT', 'POSTROUTING')
+	'nat'		=> array('PREROUTING', 'POSTROUTING', 'OUTPUT'),
+	'mangle'	=> array('PREROUTING', 'INPUT', 'FORWARD', 'OUTPUT', 'POSTROUTING')
 );
 $OPTIONS['policies'] = array(
 	'ACCEPT'	=> 'ACCEPT',
@@ -16,11 +16,13 @@ $OPTIONS['filter'] = array(
 );
 $OPTIONS['dnat'] = array(
 	'DNAT'		=> 'DNAT',
-	'REDIRECT'	=> 'REDIRECT'
+	'REDIRECT'	=> 'REDIRECT',
+	'NETMAP'	=> 'NETMAP'
 );
 $OPTIONS['snat'] = array(
 	'SNAT'		=> 'SNAT',
-	'MASQUERADE'	=> 'MASQUERADE'
+	'MASQUERADE'	=> 'MASQUERADE',
+	'NETMAP'	=> 'NETMAP'
 );
 $OPTIONS['nat'] = array_merge($OPTIONS['dnat'], $OPTIONS['snat']);
 
@@ -30,9 +32,22 @@ $OPTIONS['protocols'] = array(
 	'tcp'		=> 'TCP',
 	'udp'		=> 'UDP',
 	'icmp'		=> 'ICMP',
-	'ah'		=> 'IPsec AH',
-	'esp'		=> 'IPsec ESP',
-	'ospf'		=> 'OSPF'
+	'Routing'		=> array(
+		'ospf'		=> 'OSPF',
+		'isis'		=> 'IS-IS',
+		'eigrp'		=> 'EIGRP',
+		'rsvp'		=> 'RSVP'
+	),
+	'Tunneling'	=> array(
+		'gre'		=> 'GRE',
+		'ipip'		=> 'IP-IP',
+		'ah'		=> 'IPsec AH',
+		'esp'		=> 'IPsec ESP'
+	),
+	'Multicast'	=> array(
+		'igmp'		=> 'IGMP',
+		'pim'		=> 'PIM'
+	),
 );
 
 // Define specific header options
@@ -76,14 +91,14 @@ $OPTIONS['states'] = array(
 	'INVALID'	=> 'INVALID'
 );
 $OPTIONS['severities'] = array(
-	'debug'	=> 'debug',
-	'info'	=> 'info',
+	'debug'		=> 'debug',
+	'info'		=> 'info',
 	'notice'	=> 'notice',
 	'warning'	=> 'warning',
-	'err'	=> 'err',
-	'crit'	=> 'crit',
-	'alert'	=> 'alert',
-	'emerg'	=> 'emerg'
+	'err'		=> 'err',
+	'crit'		=> 'crit',
+	'alert'		=> 'alert',
+	'emerg'		=> 'emerg'
 );
 $OPTIONS['limits'] = array(
 	'second'	=> 'second',

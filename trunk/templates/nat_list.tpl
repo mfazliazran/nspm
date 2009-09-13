@@ -8,8 +8,8 @@
 <tbody>
 	<tr>
 		<td class="disable" style="width:20%;">Disabled</td>
-		<td class="dnat" style="width:20%;">DNAT</td>
 		<td class="redirect" style="width:20%;">REDIRECT</td>
+		<td class="dnat" style="width:20%;">DNAT</td>
 		<td class="snat" style="width:20%;">SNAT</td>
 		<td class="masquerade" style="width:20%;">MASQUERADE</td>
 	</tr>
@@ -61,7 +61,10 @@
 					{if $rule->get('destination_interface')}via {$rule->get('destination_interface')}{/if} 
 				</td>
 				<td>
-					{$rule->get('nat')|capitalize} 
+					{if $rule->get('nat_source')}Source {$rule->get('nat_source')}{/if} 
+					{if $rule->get('nat_destination')}Destination {$rule->get('nat_destination')}{/if} 
+					{if $rule->get('nat_ports')}Ports {$rule->get('nat_ports')}{/if} 
+					{if $rule->get('nat_map')}Map {$rule->get('nat_map')}{/if} 
 				</td>
 				<td>
 					{$rule->get('comment')|regex_replace:"/\@.*\@/":""|stripslashes} 

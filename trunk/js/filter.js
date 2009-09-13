@@ -18,28 +18,28 @@
 /* Diplay or hide table rows according to selected protocol */
 function updateProtocol(protocol) {
 	if (protocol == 'tcp') {
-		showChildren('row_protocol', 6);
+		showChildren('row_target', 6);
 		hide('row_icmp');
 		show('row_source_ports');
 		show('row_destination_ports');
 		show('row_flags');
 	}
 	else if (protocol == 'udp') {
-		showChildren('row_protocol', 6);
+		showChildren('row_target', 6);
 		hide('row_icmp');
 		hide('row_flags');
 		show('row_source_ports');
 		show('row_destination_ports');
 	}
 	else if (protocol == 'icmp') {
-		hideChildren('row_protocol', 6);
+		hideChildren('row_target', 6);
 		hide('row_flags');
 		hide('row_source_ports');
 		hide('row_destination_ports');
 		show('row_icmp');
 	}
 	else {
-		hideChildren('row_protocol', 6);
+		hideChildren('row_target', 6);
 		hide('row_source_ports');
 		hide('row_destination_ports');
 		hide('row_icmp');
