@@ -33,145 +33,176 @@ class Rule
 	private static $_config = array(
 		'protocol'		=> array(
 				'module'	=> '',
+				'parent'	=> '',
 				'command'	=> array('-p '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'source_interface'	=> array(
 				'module'	=> '',
+				'parent'	=> '',
 				'command'	=> array('-i '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'source_address'	=> array(
 				'module'	=> 'iprange',
+				'parent'	=> '',
 				'command'	=> array('--src-range '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'source_net'		=> array(
 				'module'	=> '',
+				'parent'	=> '',
 				'command'	=> array('-s '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'source_type'		=> array(
 				'module'	=> 'addrtype',
+				'parent'	=> '',
 				'command'	=> array('--src-type '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'source_ports'		=> array(
 				'module'	=> 'multiport',
+				'parent'	=> '',
 				'command'	=> array('--sports ', '--sport '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'source_mac'		=> array(
 				'module'	=> 'mac',
+				'parent'	=> '',
 				'command'	=> array('--mac-source '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'destination_interface'	=> array(
 				'module'	=> '',
+				'parent'	=> '',
 				'command'	=> array('-o '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'destination_address'	=> array(
 				'module'	=> 'iprange',
+				'parent'	=> '',
 				'command'	=> array('--dst-range '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'destination_net'	=> array(
 				'module'	=> '',
+				'parent'	=> '',
 				'command'	=> array('-d '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'destination_type'	=> array(
 				'module'	=> 'addrtype',
+				'parent'	=> '',
 				'command'	=> array('--dst-type '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'destination_ports'	=> array(
 				'module'	=> 'multiport',
+				'parent'	=> '',
 				'command'	=> array('--dports ', '--dport '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'icmp'			=> array(
 				'module'	=> '',
+				'parent'	=> '',
 				'command'	=> array('--icmp-type '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'states'		=> array(
 				'module'	=> 'state',
+				'parent'	=> '',
 				'command'	=> array('--state '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'flags'			=> array(
 				'module'	=> '',
+				'parent'	=> '',
 				'command'	=> array('--tcp-flags '),
 				'data'		=> 'FIN,SYN,RST,PSH,ACK,URG $',
 				'match'		=> '\S+'
 		),
 		'tos'			=> array(
 				'module'	=> 'tos',
+				'parent'	=> '',
 				'command'	=> array('--tos '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'length'		=> array(
 				'module'	=> 'length',
+				'parent'	=> '',
 				'command'	=> array('--length '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'limit'			=> array(
 				'module'	=> 'limit',
+				'parent'	=> '',
 				'command'	=> array('--limit '),
-				'data'		=> '$',
-				'match'		=> '\S+'
-		),
-		'mark'			=> array(
-				'module'	=> 'mark',
-				'command'	=> array('--mark '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
 		'comment'		=> array(
 				'module'	=> 'comment',
+				'parent'	=> '',
 				'command'	=> array('--comment '),
 				'data'		=> '"$"',
 				'match'		=> '.+'
 		), // TTL must be the last module in rule (Iptables bug)
 		'ttl'			=> array(
 				'module'	=> 'ttl',
+				'parent'	=> '',
 				'command'	=> array('--ttl-'),
 				'data'		=> '$',
 				'match'		=> '\S+ \S+'
 		),
 		'target'		=> array(
 				'module'	=> '',
+				'parent'	=> '',
 				'command'	=> array('-j '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
-		'nat'			=> array(
+		'nat_source'		=> array(
 				'module'	=> '',
-				'command'	=> array('--to-'),
+				'parent'	=> 'target',
+				'command'	=> array('--to-source '),
 				'data'		=> '$',
-				'match'		=> '\S+ \S+'
+				'match'		=> '\S+'
 		),
-		'mangle'		=> array(
+		'nat_destination'	=> array(
 				'module'	=> '',
-				'command'	=> array('--set-mark '),
+				'parent'	=> 'target',
+				'command'	=> array('--to-destination '),
+				'data'		=> '$',
+				'match'		=> '\S+'
+		),
+		'nat_ports'	=> array(
+				'module'	=> '',
+				'parent'	=> 'target',
+				'command'	=> array('--to-ports '),
+				'data'		=> '$',
+				'match'		=> '\S+'
+		),
+		'nat_map'			=> array(
+				'module'	=> '',
+				'parent'	=> 'target',
+				'command'	=> array('--to '),
 				'data'		=> '$',
 				'match'		=> '\S+'
 		)
@@ -326,6 +357,49 @@ class Rule
 		}
 
 		return $res;
+	}
+
+	/**
+	* Get all class members which depend on parent
+	* @param string - Parent name
+	* @return array - Members
+	*/
+	public function getAllChildren($parent)
+	{
+		$res = array();
+
+		// Browse configuration array
+		foreach (self::$_config as $k => $v)
+		{
+			// Check parent dependency
+			if ($v['parent'] == $parent)
+			{
+				$res[$k] = $this->{'_'.$k};
+			}
+		}
+
+		return $res;
+	}
+
+	/**
+	* Set all class members which depend on parent
+	* @param string - Parent name
+	* @param mixed - Value to set
+	* @return boolean - Setting success
+	*/
+	public function setAllChildren($parent, $val)
+	{
+		// Browse configuration array
+		foreach (self::$_config as $k => $v)
+		{
+			// Check parent dependency
+			if ($v['parent'] == $parent)
+			{
+				$this->{'_'.$k} = $val;
+			}
+		}
+
+		return true;
 	}
 
 	/**

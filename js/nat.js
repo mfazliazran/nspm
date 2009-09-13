@@ -19,7 +19,9 @@
 function updateProtocol(protocol) {
 	if ((protocol == 'tcp') || (protocol == 'udp')) {
 		show('row_destination_ports');
-		show('row_nat_ports');
+		if (getValue('target') != 'NETMAP') {
+			show('row_nat_ports');
+		}
 	}
 	else {
 		hide('row_destination_ports');
@@ -31,6 +33,17 @@ function updateProtocol(protocol) {
 function updateTarget(target) {
 	if ((target == 'DNAT') || (target == 'SNAT')) {
 		show('row_nat_address');
+		hide('nat_address_net');
+		show('nat_address_range');
+		cleanValue('nat_address_net');
+		setContent('nat_address_separator', '-');
+	}
+	else if (target == 'NETMAP') {
+		show('row_nat_address');
+		hide('nat_address_range');
+		show('nat_address_net');
+		setValue('nat_address_net', '32');
+		setContent('nat_address_separator', '/');
 	}
 	else {
 		hide('row_nat_address');

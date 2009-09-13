@@ -173,7 +173,7 @@ class Iptables
 					{
 						if ($rule->get('target') == 'disable')
 						{
-							$rule->set('nat', null);
+							$rule->setAllChildren('target', null);
 						}
 						System::systemCmd($this->cmdAppend($table, $chain, $rule->make()));
 					}
@@ -559,8 +559,15 @@ class Iptables
 		// Rule is not already disabled
 		if ($rule->get('target') != 'disable')
 		{
-			// Current target is added to comment
-			$rule->set('comment', '@'.$rule->get('target').' '.$rule->getCommand('nat').' @'.$rule->get('comment'));
+			$commands = '';
+			// Handle all target options that may exist
+			$options = $rule->getAllChildren('target');
+			foreach ($options as $option => $value)
+			{
+				$commands .= $rule->getCommand($option);
+			}
+			// Current target and options are added to comment
+			$rule->set('comment', '@'.$rule->get('target').' '.$commands.' @'.$rule->get('comment'));
 			$rule->set('target', 'disable');
 			$this->_state = 1;
 		}
@@ -578,11 +585,10 @@ class Iptables
 		$rule = $this->_config[$table][$chain]['rules'][$index-1];
 
 		// Rule is disabled and includes commented data to restore
-		if (($rule->get('target') == 'disable') && preg_match('/\@([^\@]+)\@(.*)/', $rule->get('comment'), $matches))
+		if (($rule->get('target') == 'disable') && preg_match('/\@(\S+)[^\@]*\@(.*)/', $rule->get('comment'), $matches))
 		{
 			$rule->set('target', $matches[1]);
 			$rule->set('comment', (isset($matches[2]) ? $matches[2] : null));
-			$rule->parse($rule->make());
 			$this->_state = 1;
 		}
 	}

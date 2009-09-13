@@ -26,14 +26,14 @@ foreach (array('source', 'destination') as $obj)
 	// Network address
 	if ($rule->get($obj . '_address'))
 	{
-		$data = explode('-', $rule->get($obj . '_address', true));
+		$data = explode('-', $rule->get($obj . '_address'));
 		$values[$obj . '_address'] = $data[0];
 		$values[$obj . '_address_range'] = $data[1];
 	}
 	// Network mask
 	if ($rule->get($obj . '_net'))
 	{
-		$data = explode('/', $rule->get($obj . '_net', true));
+		$data = explode('/', $rule->get($obj . '_net'));
 		$values[$obj . '_address'] = $data[0];
 		if (isset($data[1]))
 		{
@@ -45,7 +45,7 @@ foreach (array('source', 'destination') as $obj)
 	{
 		$values[$obj . '_ports'] = array();
 		$values[$obj . '_ports_range'] = array();
-		$data = explode(',', $rule->get($obj . '_ports', true));
+		$data = explode(',', $rule->get($obj . '_ports'));
 
 		// Browse ports groups
 		foreach ($data as $v)
@@ -65,7 +65,7 @@ foreach (array('source', 'destination') as $obj)
 	// MAC address
 	if ($rule->get($obj . '_mac'))
 	{
-		$values[$obj . '_mac'] = explode(':', $rule->get($obj . '_mac', true));
+		$values[$obj . '_mac'] = explode(':', $rule->get($obj . '_mac'));
 	}
 }
 
@@ -77,17 +77,17 @@ foreach (array('source', 'destination') as $obj)
 // Connection states
 if ($rule->get('states'))
 {
-	$values['states'] = explode(',', $rule->get('states', true));
+	$values['states'] = explode(',', $rule->get('states'));
 }
 // TCP flags
 if ($rule->get('flags'))
 {
-	$values['flags'] = explode(',', $rule->get('flags', true));
+	$values['flags'] = explode(',', $rule->get('flags'));
 }
 // Connections limit and unit
 if ($rule->get('limit'))
 {
-	$data = explode('/', $rule->get('limit', true));
+	$data = explode('/', $rule->get('limit'));
 	$values['limit_value'] = $data[0];
 	if (isset($data[1]))
 	{
@@ -97,7 +97,7 @@ if ($rule->get('limit'))
 // Packet length or lengths range
 if ($rule->get('length'))
 {
-	$data = explode(':', $rule->get('length', true));
+	$data = explode(':', $rule->get('length'));
 	$values['length'] = $data[0];
 	if (isset($data[1]))
 	{
@@ -107,7 +107,7 @@ if ($rule->get('length'))
 // TTL operator and value
 if ($rule->get('ttl'))
 {
-	$data = explode(' ', $rule->get('ttl', true));
+	$data = explode(' ', $rule->get('ttl'));
 	$values['ttl_op'] = $data[0];
 	$values['ttl_value'] = $data[1];
 }
@@ -117,25 +117,16 @@ if ($rule->get('ttl'))
 /* NAT translation parsing */
 /****************************************************************************/
 
-if ($rule->get('nat'))
+// Source NAT
+if ($rule->get('nat_source'))
 {
-	$data = explode(' ', $rule->get('nat', true));
-
-	// Address masquerading
-	if ($data[0] == 'ports')
-	{
-		$to = $data;
-	}
 	// Address or addresses range translation
-	else
+	$to = explode(':', $rule->get('nat_source'));
+	$addresses = explode('-', $to[0]);
+	$values['nat_address'] = $addresses[0];
+	if (isset($addresses[1]))
 	{
-		$to = explode(':', $data[1]);
-		$addresses = explode('-', $to[0]);
-		$values['nat_address'] = $addresses[0];
-		if (isset($addresses[1]))
-		{
-			$values['nat_address_range'] = $addresses[1];
-		}
+		$values['nat_address_range'] = $addresses[1];
 	}
 	// Port or ports range translation
 	if (isset($to[1]))
@@ -146,6 +137,50 @@ if ($rule->get('nat'))
 		{
 			$values['nat_port_range'] = $ports[1];
 		}
+	}
+}
+// Destination NAT
+elseif ($rule->get('nat_destination'))
+{
+	// Address or addresses range translation
+	$to = explode(':', $rule->get('nat_destination'));
+	$addresses = explode('-', $to[0]);
+	$values['nat_address'] = $addresses[0];
+	if (isset($addresses[1]))
+	{
+		$values['nat_address_range'] = $addresses[1];
+	}
+	// Port or ports range translation
+	if (isset($to[1]))
+	{
+		$ports = explode('-', $to[1]);
+		$values['nat_port'] = $ports[0];
+		if (isset($ports[1]))
+		{
+			$values['nat_port_range'] = $ports[1];
+		}
+	}
+}
+// Masquerading or redirection
+elseif ($rule->get('nat_ports'))
+{
+	// Port or ports range translation
+	$ports = explode('-', $rule->get('nat_ports'));
+	$values['nat_port'] = $ports[0];
+	if (isset($ports[1]))
+	{
+		$values['nat_port_range'] = $ports[1];
+	}
+}
+// Network mapping
+elseif ($rule->get('nat_map'))
+{
+	// Network translation
+	$to = explode('/', $rule->get('nat_map'));
+	$values['nat_address'] = $to[0];
+	if (isset($to[1]))
+	{
+		$values['nat_address_net'] = $to[1];
 	}
 }
 ?>

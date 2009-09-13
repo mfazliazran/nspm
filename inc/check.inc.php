@@ -162,7 +162,6 @@ foreach (array('source', 'destination') as $obj)
 				}
 			}
 		}
-
 		// Invalid ports range if not transmitted as an array
 		if (getPost($obj . '_ports_range') && !is_array(getPost($obj . '_ports_range', true)))
 		{
@@ -436,7 +435,6 @@ if (((getPost('target') == 'DNAT') && (($chain == 'PREROUTING') || ($chain == 'O
 				$errors['nat_address_range'] = true;
 			}
 		}
-
 		$ports = '';
 		// Port translation is only valid with TCP or UDP protocols
 		if (getPost('nat_port') && ((getPost('protocol') == 'tcp') || (getPost('protocol') == 'udp')))
@@ -466,10 +464,17 @@ if (((getPost('target') == 'DNAT') && (($chain == 'PREROUTING') || ($chain == 'O
 				$errors['nat_port'] = true;
 			}
 		}
-		// Build NAT string
-		if (!isset($errors['nat_port']) && !isset($errors['nat_port_range']))
+		// Build NAT string according to target
+		if (!isset($errors['nat_address']) && !isset($errors['nat_port']))
 		{
-			$rule->set('nat', ((getPost('target', true) == 'DNAT') ? 'destination ' : 'source ') . $addresses . $ports);
+			if (getPost('target', true) == 'SNAT')
+			{
+				$rule->set('nat_source', $addresses . $ports);
+			}
+			elseif (getPost('target', true) == 'DNAT')
+			{
+				$rule->set('nat_destination', $addresses . $ports);
+			}
 		}
 	}
 	else
@@ -505,9 +510,9 @@ elseif (((getPost('target') == 'REDIRECT') && (($chain == 'PREROUTING') || ($cha
 				}
 			}
 			// Build NAT string
-			if (!isset($errors['nat_port']) && !isset($errors['nat_port_range']) && !empty($ports))
+			if (!isset($errors['nat_port']) && !empty($ports))
 			{
-				$rule->set('nat', 'ports ' . $ports);
+				$rule->set('nat_ports', $ports);
 			}
 		}
 		else
@@ -515,5 +520,41 @@ elseif (((getPost('target') == 'REDIRECT') && (($chain == 'PREROUTING') || ($cha
 			$errors['nat_port'] = true;
 		}
 	}
+}
+// Check chain validity for NETMAP context
+elseif (getPost('target') == 'NETMAP')
+{
+	// Valid IPv4 address
+	if (getPost('nat_address') && Security::checkIP(getPost('nat_address', true)))
+	{
+		$addresses = getPost('nat_address', true);
+		// CIDR formatting
+		if (getPost('nat_address_net') && (getPost('target') == 'NETMAP'))
+		{
+			// CIDR is valid integer within valid range (1-32)
+			if (Security::check(getPost('nat_address_net', true), INT, 1, 32))
+			{
+				$addresses = getPost('nat_address', true). '/' .getPost('nat_address_net', true);
+			}
+			else
+			{
+				$errors['nat_address'] = true;
+				$errors['nat_address_net'] = true;
+			}
+		}
+		// Build NAT string
+		if (!isset($errors['nat_address']))
+		{
+			$rule->set('nat_map', $addresses);
+		}
+	}
+	else
+	{
+		$errors['nat_address'] = true;
+	}
+}
+else
+{
+	$errors['target'] = true;
 }
 ?>

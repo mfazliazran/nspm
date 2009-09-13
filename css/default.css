@@ -257,6 +257,9 @@ th {
 .list tbody .redirect {
 	background-color: #FFFFE3;
 }
+.list tbody .netmap {
+	background-color: #FFFFFF;
+}
 .list tbody .snat {
 	background-color: #E3E3FF;
 }

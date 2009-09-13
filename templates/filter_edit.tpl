@@ -37,9 +37,9 @@
 			<th>Default policy</th>
 			<td>: {$config.$table.$chain.policy}</td>
 		</tr>
-		<tr id="row_protocol">
-			<th style="width:130px;">{if isset($errors.protocol)}{$warn_icon}{/if}<label for="protocol">Protocol</label></th>
-			<td style="width:290px;">: {html_options name="protocol" id="protocol" options=$options.protocols selected=$values.protocol|default:'' onchange="updateProtocol(this.value);"}</td>
+		<tr id="row_target">
+			<th style="width:130px;">{if isset($errors.target)}{$warn_icon}{/if}<label for="target">Target</label></th>
+			<td style="width:290px;">: {html_options name="target" id="target" options=$options.filter selected=$values.target|default:''}</td>
 			<td>&nbsp;</td>
 			<th {if !isset($values.protocol) || ($values.protocol != 'tcp' && $values.protocol != 'udp')}style="display:none;"{/if}><label for="connections_ports">Used ports</label></th>
 			<td {if !isset($values.protocol) || ($values.protocol != 'tcp' && $values.protocol != 'udp')}style="display:none;"{/if}>: {html_options name="connections_ports" id="connections_ports" options=$system.connections_ports}</td>
@@ -48,9 +48,9 @@
 				<img src="img/icons/destination.png" width="16" height="16" alt="Destination" title="Use as destination port" style="cursor:pointer;" onclick="usePort('destination', document.getElementById('connections_ports').value);" />
 			</td>
 		</tr>
-		<tr id="row_target">
-			<th>{if isset($errors.target)}{$warn_icon}{/if}<label for="target">Target</label></th>
-			<td>: {html_options name="target" id="target" options=$options.filter selected=$values.target|default:''}</td>
+		<tr id="row_protocol">
+			<th>{if isset($errors.protocol)}{$warn_icon}{/if}<label for="protocol">Protocol</label></th>
+			<td>: {html_options name="protocol" id="protocol" options=$options.protocols selected=$values.protocol|default:'' onchange="updateProtocol(this.value);"}</td>
 			<td>&nbsp;</td>
 			<th style="width:105px;"><label for="connections_addresses">Known IPs</label></th>
 			<td style="width:170px;">: {html_options name="connections_addresses" id="connections_addresses" options=$system.connections_addresses}</td>

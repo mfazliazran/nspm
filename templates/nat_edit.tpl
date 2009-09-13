@@ -37,13 +37,13 @@
 			<th>Default politcy</th>
 			<td>: {$config.$table.$chain.policy}</td>
 		</tr>
-		<tr id="row_protocol">
-			<th>{if isset($errors.protocol)}{$warn_icon}{/if}<label for="protocol">Protocol</label></th>
-			<td>: {html_options name="protocol" id="protocol" options=$options.protocols selected=$values.protocol|default:'' onchange="updateProtocol(this.value);"}</td>
-		</tr>
 		<tr id="row_target">
 			<th>{if isset($errors.target)}{$warn_icon}{/if}<label for="target">Target</label></th>
 			<td>: {if $chain == 'POSTROUTING'}{html_options name="target" id="target" options=$options.snat selected=$values.target|default:'' onchange="updateTarget(this.value);"}{else}{html_options name="target" id="target" options=$options.dnat selected=$values.target|default:'' onchange="updateTarget(this.value);"}{/if}</td>
+		</tr>
+		<tr id="row_protocol">
+			<th>{if isset($errors.protocol)}{$warn_icon}{/if}<label for="protocol">Protocol</label></th>
+			<td>: {html_options name="protocol" id="protocol" options=$options.protocols selected=$values.protocol|default:'' onchange="updateProtocol(this.value);"}</td>
 		</tr>
 		<tr id="row_comment">
 			<th>{if isset($errors.comment)}{$warn_icon}{/if}<label for="comment">Comment</label></th>
@@ -117,8 +117,10 @@
 		<tr id="row_nat_address" {if isset($values.target) && ($values.target == 'MASQUERADE' || $values.target == 'REDIRECT')}style="display:none;"{/if}>
 			<th style="width:130px;">{if isset($errors.nat_address)}{$warn_icon}{/if}<label for="nat_address">New&nbsp;addresses</label></th>
 			<td>:
-				<input type="text" name="nat_address" id="nat_address" size="15" maxlength="15" value="{$values.nat_address|default:''}" /> -
-				<input type="text" name="nat_address_range" id="nat_address_range" size="15" maxlength="15" value="{$values.nat_address_range|default:''}" />
+				<input type="text" name="nat_address" id="nat_address" size="15" maxlength="15" value="{$values.nat_address|default:''}" />
+				<span id="nat_address_separator">{if (isset($values.nat_address_net) && $values.nat_address_net != '') || (isset($values.target) && $values.target == 'NETMAP')}/{else}-{/if}</span>
+				<input type="text" name="nat_address_range" id="nat_address_range" size="15" maxlength="15" value="{$values.nat_address_range|default:''}" {if (isset($values.nat_address_net) && $values.nat_address_net != '') || (isset($values.target) && $values.target == 'NETMAP')}style="display:none;"{/if} />
+				<input type="text" name="nat_address_net" id="nat_address_net" size="2" maxlength="2" value="{$values.nat_address_net|default:''}" {if (!isset($values.nat_address_net) || $values.nat_address_net == '') && (!isset($values.target) || $values.target != 'NETMAP')}style="display:none;"{/if} />
 			</td>
 		</tr>
 		<tr id="row_nat_ports" {if !isset($values.protocol) || ($values.protocol != 'tcp' && $values.protocol != 'udp')}style="display:none;"{/if}>
