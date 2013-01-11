@@ -1,4 +1,20 @@
-v0.2 - xx/xx/2009
+v0.3 - 10/08/2009
+_________________
+
++ Built-in internal or HTTP authentication module
++ Adding NETMAP target choice to NAT rules composition
++ Adding LOG and ULOG targets supports for filter rules
++ Adding new common protocols to default selection list
+
+* Fix: MAC addresses were sometimes not correctly displayed on some systems
+* Fix: Default values were not correcly set for unexpected addresses masks
+
+- New management of target options and disable effects on arguments
+- New definitions added to configuration file and related documentation
+- Minor code fixes, typos, harmonizations and display improvements
+
+
+v0.2 - 05/07/2009
 _________________
 
 - GPL release
@@ -29,7 +45,7 @@ Various improvements
 * Fix: Existing mangle settings were overwritten when committing changes
 
 
-v0.1 - 30/09/2006
+v0.1 - 09/30/2006
 _________________
 
 - Initial release

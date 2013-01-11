@@ -178,6 +178,34 @@ class Rule
 				'data'		=> '$',
 				'match'		=> '\S+'
 		),
+		'log_level'		=> array(
+				'module'	=> '',
+				'parent'	=> 'target',
+				'command'	=> array('--log-level '),
+				'data'		=> '$',
+				'match'		=> '\S+'
+		),
+		'log_prefix'		=> array(
+				'module'	=> '',
+				'parent'	=> 'target',
+				'command'	=> array('--log-prefix '),
+				'data'		=> '"$"',
+				'match'		=> '\S+'
+		),
+		'ulog_nlgroup'		=> array(
+				'module'	=> '',
+				'parent'	=> 'target',
+				'command'	=> array('--ulog-nlgroup '),
+				'data'		=> '$',
+				'match'		=> '\S+'
+		),
+		'ulog_prefix'		=> array(
+				'module'	=> '',
+				'parent'	=> 'target',
+				'command'	=> array('--ulog-prefix '),
+				'data'		=> '"$"',
+				'match'		=> '\S+'
+		),
 		'nat_source'		=> array(
 				'module'	=> '',
 				'parent'	=> 'target',

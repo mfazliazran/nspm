@@ -7,10 +7,11 @@
 <table class="list" style="text-align:center;">
 <tbody>
 	<tr>
-		<td class="disable" style="width:25%;">Disabled</td>
-		<td class="accept" style="width:25%;">ACCEPT</td>
-		<td class="drop" style="width:25%;">DROP</td>
-		<td class="reject" style="width:25%;">REJECT</td>
+		<td class="disable" style="width:20%;">Disabled</td>
+		<td class="accept" style="width:20%;">ACCEPT</td>
+		<td class="drop" style="width:20%;">DROP</td>
+		<td class="reject" style="width:20%;">REJECT</td>
+		<td class="log" style="width:20%;">LOG</td>
 	</tr>
 </tbody>
 </table><br />
@@ -65,6 +66,7 @@
 					{if $rule->get('tos')}<img src="img/icons/tos.png" width="16" height="16" alt="TOS" title="ToS {$rule->get('tos')}" />{/if}
 					{if $rule->get('length')}<img src="img/icons/length.png" width="16" height="16" alt="Length" title="Length {$rule->get('length')}" />{/if}
 					{if $rule->get('ttl')}<img src="img/icons/ttl.png" width="16" height="16" alt="TTL" title="TTL {$rule->get('ttl')|replace:'lt':'<'|replace:'eq':'='|replace:'gt':'>'}" />{/if}
+					{$rule->get('log_prefix')}{$rule->get('ulog_prefix')}
 					{$rule->get('comment')|regex_replace:"/\@.*\@/":""|stripslashes} 
 				</td>
 				<td class="icons" style="width:116px;">

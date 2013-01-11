@@ -20,7 +20,7 @@ to grant proper permissions. Web user may change according to your Linux
 distribution and web server: www-data, apache, www, etc.
 
 * Extract archive to web directory
-	* tar -xzf archive.tar.gz
+	* tar -xzf nspm-xxx.tar.gz
 
 * Grant permissions to web user
 	* chown -R www-data.www-data
@@ -36,10 +36,21 @@ distribution and web server: www-data, apache, www, etc.
 	* edit inc/config.inc.php
 	* Define display preferences and system paths to binaries
 
-* Secure your web directory!
+* Customize application security (optionnal but recommended)
+	* Define administrator login and password
+		* Default credentials are set to login "admin" and password "!nspm!"
+		* Password is encrypted using SHA1 hash algorithm
+		* To compute SHA1 password, use command "echo -n 'password' | sha1sum"
+	* Choose authentication method
+		* "session" enables NSPM web-based authentication
+		* "http" sends HTTP authentication headers to browser
+		* If Apache authentication is already used, http will not be triggered
+	* Restrict access to configuration file
+		* chmod 640 inc/config.inc.php
+
+* Secure your global installation (optionnal but recommended)
 	* Bind web server to local addresses only
 	* Create appropriate firewall rules to restrict connections
-	* Enable server-embedded user authentication (.htaccess)
 
 /!\ Caution /!\
 ---------------
@@ -47,5 +58,5 @@ distribution and web server: www-data, apache, www, etc.
 Backup your current Iptables configuration before running the application. Even
 though most common rules and options are supported and will be automatically
 imported, some specific parameters may be lost in the process. Note that no
-modification will be made before you actually commit a new configuration so pay
+modification will be made before you actually save a new configuration, so pay
 close attention to first run.

@@ -23,6 +23,13 @@ $page = 'filter';
 $tpl->assign('table', $table);
 $tpl->assign('page', $page);
 
+$groups[''] = 'Default';
+for ($i=1; $i<=32; $i++)
+{
+	$groups[$i] = $i;
+}
+$tpl->assign('nlgroups', $groups);
+
 
 /****************************************************************************/
 /* General context */
