@@ -35,7 +35,6 @@ function updateTarget(target) {
 		show('row_nat_address');
 		hide('nat_address_net');
 		show('nat_address_range');
-		cleanValue('nat_address_net');
 		setContent('nat_address_separator', '-');
 	}
 	else if (target == 'NETMAP') {

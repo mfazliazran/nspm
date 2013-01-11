@@ -47,6 +47,28 @@ function updateProtocol(protocol) {
 	}
 }
 
+/* Diplay or hide table rows according to selected target */
+function updateTarget(target) {
+	if (target == 'LOG') {
+		hide('row_ulog_nlgroup');
+		hide('row_ulog_prefix');
+		show('row_log_level');
+		show('row_log_prefix');
+	}
+	else if (target == 'ULOG') {
+		hide('row_log_level');
+		hide('row_log_prefix');
+		show('row_ulog_nlgroup');
+		show('row_ulog_prefix');
+	}
+	else {
+		hide('row_log_level');
+		hide('row_log_prefix');
+		hide('row_ulog_nlgroup');
+		hide('row_ulog_prefix');
+	}
+}
+
 /* Change displayed IP address type (CIDR or range) */
 function changeAddress(context) {
 	if (isVisible(context + '_address_net')) {

@@ -247,6 +247,12 @@ th {
 .list tbody .reject {
 	background-color: #FFFFE3;
 }
+.list tbody .log {
+	background-color: #E3FFFF;
+}
+.list tbody .ulog {
+	background-color: #E3FFFF;
+}
 .list tbody .disable {
 	background-color: #EEEEEE;
 }

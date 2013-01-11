@@ -132,4 +132,25 @@ function CIDRToMask($cidr)
 
 	return $address . $mask;
 }
+
+// Merge all dimensions of an array
+function array_flat($array)
+{
+	$result = array();
+
+	foreach ($array as $k => $v)
+	{
+		// Recurse through dimensions
+		if (is_array($v))
+		{
+			$result = array_merge($result, array_flat($v));
+		}
+		else
+		{
+			$result[$k] = $v;
+		}
+	}
+
+	return $result;
+}
 ?>

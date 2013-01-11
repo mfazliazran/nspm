@@ -39,7 +39,7 @@
 		</tr>
 		<tr id="row_target">
 			<th style="width:130px;">{if isset($errors.target)}{$warn_icon}{/if}<label for="target">Target</label></th>
-			<td style="width:290px;">: {html_options name="target" id="target" options=$options.filter selected=$values.target|default:''}</td>
+			<td style="width:290px;">: {html_options name="target" id="target" options=$options.filter selected=$values.target|default:'' onchange="updateTarget(this.value);"}</td>
 			<td>&nbsp;</td>
 			<th {if !isset($values.protocol) || ($values.protocol != 'tcp' && $values.protocol != 'udp')}style="display:none;"{/if}><label for="connections_ports">Used ports</label></th>
 			<td {if !isset($values.protocol) || ($values.protocol != 'tcp' && $values.protocol != 'udp')}style="display:none;"{/if}>: {html_options name="connections_ports" id="connections_ports" options=$system.connections_ports}</td>
@@ -188,6 +188,30 @@
 		<tr id="row_flags" {if !isset($values.protocol) || $values.protocol != 'tcp'}style="display:none;"{/if}>
 			<th style="width:130px;">{if isset($errors.flags)}{$warn_icon}{/if}<label>TCP flags</label></th>
 			<td>:{html_checkboxes name="flags" options=$options.flags selected=$values.flags|default:''}
+			</td>
+		</tr>
+		<!-- Log level -->
+		<tr id="row_log_level" {if !isset($values.target) || $values.target != 'LOG'}style="display:none;"{/if}>
+			<th style="width:130px;">{if isset($errors.log_level)}{$warn_icon}{/if}<label>LOG level</label></th>
+			<td>: {html_options name="log_level" id="log_level" options=$options.severities selected=$values.log_level|default:''}
+			</td>
+		</tr>
+		<!-- Log prefix -->
+		<tr id="row_log_prefix" {if !isset($values.target) || $values.target != 'LOG'}style="display:none;"{/if}>
+			<th style="width:130px;">{if isset($errors.log_prefix)}{$warn_icon}{/if}<label>LOG prefix</label></th>
+			<td>: <input type="text" name="log_prefix" id="log_prefix" size="32" maxlength="29" value="{$values.log_prefix|default:''}" />
+			</td>
+		</tr>
+		<!-- Ulog netlink group -->
+		<tr id="row_ulog_nlgroup" {if !isset($values.target) || $values.target != 'ULOG'}style="display:none;"{/if}>
+			<th style="width:130px;">{if isset($errors.ulog_nlgroup)}{$warn_icon}{/if}<label>ULOG netlink group</label></th>
+			<td>: {html_options name="ulog_nlgroup" id="ulog_nlgroup" options=$options.nlgroups selected=$values.ulog_nlgroup|default:''}
+			</td>
+		</tr>
+		<!-- Ulog prefix -->
+		<tr id="row_ulog_prefix" {if !isset($values.target) || $values.target != 'ULOG'}style="display:none;"{/if}>
+			<th style="width:130px;">{if isset($errors.ulog_prefix)}{$warn_icon}{/if}<label>ULOG prefix</label></th>
+			<td>: <input type="text" name="ulog_prefix" id="ulog_prefix" size="32" maxlength="32" value="{$values.ulog_prefix|default:''}" />
 			</td>
 		</tr>
 		<!-- Connection trace -->

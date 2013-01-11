@@ -24,7 +24,7 @@
 if (getPost('protocol'))
 {
 	// Protocol is known and valid
-	if (Security::checkOptionValue(getPost('protocol', true), array_keys($OPTIONS['protocols'])))
+	if (Security::checkOptionValue(getPost('protocol', true), array_keys(array_flat($OPTIONS['protocols']))))
 	{
 		$rule->set('protocol', getPost('protocol', true));
 	}
@@ -312,6 +312,44 @@ if (getPost('flags') && getPost('protocol') == 'tcp')
 		}
 	}
 }
+// LOG severity level
+if (getPost('log_level') && getPost('target') == 'LOG')
+{
+	// Level is known and valid
+	if (Security::checkOptionValue(getPost('log_level', true), array_keys($OPTIONS['severities'])))
+	{
+		$rule->set('log_level', getPost('log_level', true));
+	}
+	else
+	{
+		$errors['log_level'] = true;
+	}
+}
+// LOG prefix string
+if (getPost('log_prefix') && getPost('target') == 'LOG')
+{
+	// Escape dangerous caracters and trim string to max length
+	$rule->set('log_prefix', Security::sanitize(getPost('log_prefix', true), STRING, 1, 29));
+}
+// ULOG prefix string
+if (getPost('ulog_nlgroup') && getPost('target') == 'ULOG')
+{
+	// Group is valid integer within valid range (1-32)
+	if (Security::check(getPost('ulog_nlgroup', true), INT, 1, 32))
+	{
+		$rule->set('ulog_nlgroup', getPost('ulog_nlgroup', true));
+	}
+	else
+	{
+		$errors['ulog_nlgroup'] = true;
+	}
+}
+// ULOG prefix string
+if (getPost('ulog_prefix') && getPost('target') == 'ULOG')
+{
+	// Escape dangerous caracters and trim string to max length
+	$rule->set('ulog_prefix', Security::sanitize(getPost('ulog_prefix', true), STRING, 1, 32));
+}
 // Connections limit
 if (getPost('limit_value'))
 {
@@ -552,9 +590,5 @@ elseif (getPost('target') == 'NETMAP')
 	{
 		$errors['nat_address'] = true;
 	}
-}
-else
-{
-	$errors['target'] = true;
 }
 ?>

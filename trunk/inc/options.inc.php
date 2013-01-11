@@ -12,7 +12,9 @@ $OPTIONS['policies'] = array(
 $OPTIONS['filter'] = array(
 	'ACCEPT'	=> 'ACCEPT',
 	'DROP'		=> 'DROP',
-	'REJECT'	=> 'REJECT'
+	'REJECT'	=> 'REJECT',
+	'LOG'		=> 'LOG',
+	'ULOG'		=> 'ULOG'
 );
 $OPTIONS['dnat'] = array(
 	'DNAT'		=> 'DNAT',
@@ -91,14 +93,15 @@ $OPTIONS['states'] = array(
 	'INVALID'	=> 'INVALID'
 );
 $OPTIONS['severities'] = array(
-	'debug'		=> 'debug',
-	'info'		=> 'info',
-	'notice'	=> 'notice',
-	'warning'	=> 'warning',
-	'err'		=> 'err',
-	'crit'		=> 'crit',
-	'alert'		=> 'alert',
-	'emerg'		=> 'emerg'
+	''		=> 'Default',
+	'7'		=> 'debug',
+	'6'		=> 'info',
+	'5'		=> 'notice',
+	'4'		=> 'warning',
+	'3'		=> 'err',
+	'2'		=> 'crit',
+	'1'		=> 'alert',
+	'0'		=> 'emerg'
 );
 $OPTIONS['limits'] = array(
 	'second'	=> 'second',
@@ -128,4 +131,9 @@ $OPTIONS['operators'] = array(
 	'eq'		=> 'equal to',
 	'gt'		=> 'more than'
 );
+$OPTIONS['nlgroups'][''] = 'Default';
+for ($i=1; $i<=32; $i++)
+{
+	$OPTIONS['nlgroups'][$i] = $i;
+}
 ?>
